@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>G2P SDA Weighted Bots</title>
+<style>
+body{margin:0;background:#0b0d10;color:#e8e6e1;font:16px/1.45 ui-sans-serif,system-ui}
+main{max-width:880px;margin:0 auto;padding:28px 20px}
+h1{font-weight:560;letter-spacing:-.03em}
+.mut{color:#9a968c}.card{border:1px solid #2a2e34;border-radius:12px;padding:14px;margin-top:12px}
+button{background:#d6b25e;color:#1a1408;border:0;border-radius:8px;padding:8px 12px;font-weight:600}
+input,textarea{width:100%;background:#12151a;color:#e8e6e1;border:1px solid #2a2e34;border-radius:8px;padding:8px}
+pre{white-space:pre-wrap}
+</style></head><body><main>
+<h1>G2P SDA Weighted Bots</h1>
+<p class="mut">Serana, Danny, Bel. Echoic and iconic memory. Triple window. Traits only rise. Host tokens and GPU only past the local ceiling. Partners pay 15% of attributable gross.</p>
+<div class="card"><b>Lifted traits</b><pre id="merge">loading</pre></div>
+<div class="card"><b>License desk</b><p class="mut">Token from G2P. Contact djg2@g2ptechnologies.com</p>
+<input id="tok" placeholder="g2p_ token"/>
+<textarea id="prompt" rows="3">Hold the triple window and answer from local merge.</textarea>
+<button id="go">Run local</button><pre id="out"></pre></div>
+</main>
+<script>
+fetch('/v1/merge').then(r=>r.json()).then(j=>{document.getElementById('merge').textContent=JSON.stringify(j.lifted,null,2)})
+document.getElementById('go').onclick=async()=>{
+ const r=await fetch('/v1/infer',{method:'POST',headers:{'Authorization':'Bearer '+document.getElementById('tok').value,'Content-Type':'application/json'},body:JSON.stringify({prompt:document.getElementById('prompt').value,salient:true})})
+ document.getElementById('out').textContent=await r.text()
+}
+</script></body></html>
